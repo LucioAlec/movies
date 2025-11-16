@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'flicks/movies'
+  require 'flicks/playlist'
+  require 'flicks/reviewers'   # mantenha o mesmo nome do arquivo
+  require 'flicks/movie3d'
+  require 'flicks/snack_bar'
+rescue LoadError
+  $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+  retry
+end
+
+
+
+playlist1= Flicks::Playlist.new("Kermit")
+default_movie_file = 
+File.join(File.dirname(__FILE__), 'movies.csv')
+playlist1.load(ARGV.shift || default_movie_file)
+movie3d = Flicks::Movie3D.new('glee', 5, 20)
+playlist1.add_movie(movie3d)
+
+
+loop do
+
+    puts "How many viewings?  ('quit' to exit)"
+    answer = gets.chomp.downcase
+    case answer
+    when /^\d+$/ 
+        puts "Enjoy your #{answer} viewings.."
+        playlist1.play(answer.to_i)
+    when 'quit', 'exit'
+        playlist1.print_stats
+        break
+    else
+        puts "Please enter a number or 'quit'"
+    end
+
+end
+playlist1.save
+
+
+puts "--------------------------------"
+=begin
+playlist2 = Playlist.new("Fozzie")
+playlist2.add_movie(movie3)
+
+movie4= Movie.new("avengers", 15)
+playlist2.add_movie(movie4)
+playlist2.play(2)
+=end
+#movie1= Movie.new("goonies", 10)   #Criando um objeto da classe e chamando os métodos de instância
+#movie2= Movie.new("ghostbusters", 9)
+#movie3= Movie.new("Goldfingers")
+
+
+#movies = [movie1, movie2, movie3]
