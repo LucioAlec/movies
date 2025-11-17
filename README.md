@@ -1,4 +1,4 @@
-﻿# Flicks
+﻿# Movies
 
 Command-line app/gem to play and review movies.
 
